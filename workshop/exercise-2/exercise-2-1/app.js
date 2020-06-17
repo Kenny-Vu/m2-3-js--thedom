@@ -1,9 +1,11 @@
 // Preset values
-const FROGS = 3;
+const FROGS = 5;
 const track = document.querySelector('#track');
 let laneNum = null;
 let racersList = [];
 let startButton = document.getElementById('startButton');
+let ranking = [];
+let podium = document.querySelector('.ranking');
 import {frogStable} from "/workshop/exercise-2/assets/frogStable.js";
 
 //creating the track
@@ -40,6 +42,8 @@ function createLineup(counter){
     let randomTime = Math.floor(Math.random()*1000) + 500;
     let frogName = document.getElementById(frogObject.name);
     let frogProgress = frogObject.progress;
+    let standings = ['1st','2nd','3rd'];
+    
 
     let intervalfunc = setInterval(function(){
         let hopDistance = Math.floor(Math.random()*15);
@@ -47,11 +51,14 @@ function createLineup(counter){
         frogObject.progress = frogObject.progress + hopDistance;
         frogName.style.left = `${frogProgress}%`;
         if(frogProgress > 100){
-            console.log(`${frogObject.name} finished!`)
+            console.log(`${frogObject.name} finished!`);
+            ranking.push(frogObject.name);
+            let winner = document.createElement('p');
+            winner.innerText = `Position: ${ranking.indexOf(frogObject.name)+1} \nFrog:${frogObject.name}`;
+            podium.appendChild(winner);
             clearInterval(intervalfunc);
-            }   
-        },randomTime)
-        
+        }   
+    },randomTime) 
 }
 
 createTrack(FROGS);
