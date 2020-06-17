@@ -8,12 +8,7 @@ let mainTag = document.createElement('main');
 let h1Tag = document.createElement('h1');
 let firstParagraph = document.createElement('p');
 
-
-//link tag
-linkTag.type = 'text/css';
-linkTag.rel = 'stylesheet';
-linkTag.href = 'styles.css';
-
+//mainTag content
 mainTag.innerHTML = `<h1>
 The best How I Met Your Mother episode (according to
 fans)
@@ -58,6 +53,15 @@ href="https://himym2017.wordpress.com/2017/03/25/the-best-himym-episode-accordin
 >Source</a
 >`
 
-headTag.appendChild(linkTag);
 bodyTag.appendChild(mainTag);
+
+
+//link tag
+linkTag.type = 'text/css';
+linkTag.rel = 'stylesheet';
+linkTag.href = 'styles.css';
+
+
+headTag.appendChild(linkTag);
+
 

@@ -1,3 +1,4 @@
+
 const frogStable = [
   {
     name: 'Hopper',
@@ -25,3 +26,9 @@ const frogStable = [
     number: '8',
   },
 ];
+
+
+
+export {frogStable};
+
+
