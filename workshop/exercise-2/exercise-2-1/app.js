@@ -3,6 +3,7 @@ const FROGS = 3;
 const track = document.querySelector('#track');
 let laneNum = null;
 let racersList = [];
+let startButton = document.getElementById('startButton');
 import {frogStable} from "/workshop/exercise-2/assets/frogStable.js";
 
 //creating the track
@@ -23,10 +24,8 @@ function createTrack(counter){
 function createLineup(counter){
   for (let racerNum=0;racerNum<counter;racerNum++){
     racersList.push(frogStable[racerNum]);
-    racersList[racerNum].progress = 0;
     let laneId = document.getElementById('lane'+(racerNum+1))
     let racerId = document.createElement('div');
-
     racerId.setAttribute('id',racersList[racerNum].name);
     racerId.classList.add('frog');
     racerId.style.backgroundColor = racersList[racerNum].color;
@@ -36,30 +35,34 @@ function createLineup(counter){
   }
 }
 
-//Function for getting the frogs to hop hop!
-function racingFrogs(frogObject){
-    let hopDistance = Math.floor(Math.random()*15);
+// Function to start race
+ function racingFrogs(frogObject) {
+    let randomTime = Math.floor(Math.random()*1000) + 500;
     let frogName = document.getElementById(frogObject.name);
     let frogProgress = frogObject.progress;
-    frogObject.progress = frogObject.progress + hopDistance;
-    console.log(frogObject.progress);
-    frogName.style.left = `${frogProgress}%`;
-    if(frogObject.progress >= 100){
-        clearInterval(raceStart);
-    }
+
+    let intervalfunc = setInterval(function(){
+        let hopDistance = Math.floor(Math.random()*15);
+        frogProgress = frogObject.progress;
+        frogObject.progress = frogObject.progress + hopDistance;
+        frogName.style.left = `${frogProgress}%`;
+        if(frogProgress > 100){
+            console.log(`${frogObject.name} finished!`)
+            clearInterval(intervalfunc);
+            }   
+        },randomTime)
+        
 }
-
-
-let raceStart = setInterval(function(){
-    racersList.forEach(racingFrogs);
-
-},1000);
-
-
 
 createTrack(FROGS);
 createLineup(FROGS);
 
+//Created a button because I got annoyed at my frogs starting the race on every refresh...
+startButton.addEventListener('click',function(){
+    for(let i=0;i<racersList.length;i++){
+        racingFrogs(racersList[i]);
+    }
+})
 
 
 
